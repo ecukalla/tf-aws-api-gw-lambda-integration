@@ -1,0 +1,66 @@
+formatter: markdown table
+
+version: ">= 0.17.0"
+
+header-from: doc_header.md
+footer-from: ""
+
+recursive:
+  enabled: false
+
+sections:
+  hide: []
+  show: []
+
+content: |-
+  {{ .Header }}
+
+  ## Usage
+
+  ```hcl
+  module "api_endpoint" {
+    source  = "your-org/api-gw-lambda-integration/aws"
+    version = "~> 1.0"
+
+    rest_api_id       = aws_api_gateway_rest_api.example.id
+    parent_id         = aws_api_gateway_rest_api.example.root_resource_id
+    path_part         = "example"
+    http_method       = "GET"
+    lambda_invoke_arn = aws_lambda_function.example.invoke_arn
+  }
+  ```
+
+  {{ .Requirements }}
+
+  {{ .Providers }}
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+output:
+  file: README.md
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  sensitive: true
+  type: true
